@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoFinanzas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="authScreen" class="auth-screen">
+      <section class="auth-card">
+        <div class="auth-left">
+          <div class="brand">
+            <h1>AutoFinanzas</h1>
+            <p>Tu socio financiero</p>
+          </div>
+          <div class="car-photo" aria-hidden="true">
+            <div class="key-card">🔑</div>
+            <div class="mini-car">🚘</div>
+          </div>
+        </div>
+        <div class="auth-right">
+          <h2>Abre tu <span>Cuenta AutoFinanzas</span><br />en línea</h2>
+          <div class="auth-tabs">
+            <button id="loginTab" class="tab active" type="button">
+              Iniciar sesión
+            </button>
+            <button id="registerTab" class="tab" type="button">
+              Registrarse
+            </button>
+          </div>
+          <form id="loginForm" class="auth-form">
+            <p class="demo-text">
+              Usuario demo: demo@autofinanzas.pe / contraseña 1234
+            </p>
+            <div class="form-row two">
+              <select id="loginDocType" aria-label="Tipo de documento">
+                <option>DNI</option>
+                <option>CE</option>
+                <option>Pasaporte</option>
+              </select>
+              <input
+                id="loginDocNumber"
+                type="text"
+                placeholder="N° de documento"
+              />
+            </div>
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="Contraseña"
+            />
+            <button class="primary-btn" type="submit">Ingresar</button>
+            <p class="auth-link">
+              ¿Aún no tienes una cuenta?
+              <a href="#" id="goRegister">Regístrate aquí</a>
+            </p>
+          </form>
+          <form id="registerForm" class="auth-form hidden">
+            <input
+              id="regFullName"
+              type="text"
+              placeholder="Nombres y apellidos"
+            />
+            <input id="regPassword" type="password" placeholder="Contraseña" />
+            <input
+              id="regEmail"
+              type="email"
+              placeholder="Correo electrónico"
+            />
+            <div class="form-row two">
+              <select id="regDocType" aria-label="Tipo de documento">
+                <option>DNI</option>
+                <option>CE</option>
+                <option>Pasaporte</option>
+              </select>
+              <input
+                id="regDocNumber"
+                type="text"
+                placeholder="N° de documento"
+              />
+            </div>
+            <input id="regPhone" type="text" placeholder="Celular o teléfono" />
+            <button class="primary-btn" type="submit">Regístrate</button>
+            <p class="auth-link">
+              ¿Ya tienes una cuenta?
+              <a href="#" id="goLogin">Inicia sesión aquí</a>
+            </p>
+          </form>
+          <div id="authMessage" class="message hidden"></div>
+        </div>
+      </section>
+    </main>
+
+    <main id="appScreen" class="app-screen hidden">
+      <aside class="sidebar">
+        <div class="side-brand">
+          <h2>AutoFinanzas</h2>
+          <p>Tu socio financiero</p>
+        </div>
+        <nav class="menu">
+          <button class="nav-btn active" data-page="dashboard">
+            ▦ Dashboard
+          </button>
+          <button class="nav-btn" data-page="plans">▤ Mis Planes</button>
+          <button class="nav-btn" data-page="newPlan">✣ Nuevo Plan</button>
+          <button class="nav-btn" data-page="settings">⚙ Ajustes</button>
+        </nav>
+        <div class="side-user">
+          <span>👤</span><strong id="sideUserName">Usuario</strong
+          ><button id="logoutBtn" type="button">Cerrar sesión</button>
+        </div>
+      </aside>
+
+      <section class="content">
+        <section id="dashboardPage" class="page active">
+          <header class="welcome">
+            <h1>Bienvenido, <span id="dashboardName">Usuario</span></h1>
+            <p>Gestiona tus planes financieros y proyecciones vehiculares</p>
+          </header>
+          <div class="quick-grid">
+            <article class="quick-card" data-go="plans">
+              <div class="icon-box">↗</div>
+              <div>
+                <h3>Planes e historial</h3>
+                <p>
+                  Administra tus comparaciones guardadas y revisa indicadores
+                  clave.
+                </p>
+                <strong>Ver planes ›</strong>
+              </div>
+            </article>
+            <article class="quick-card" data-go="newPlan">
+              <div class="icon-box">🚘</div>
+              <div>
+                <h3>Crear Nuevo Plan</h3>
+                <p>Configura tu crédito vehicular con tasas preferenciales.</p>
+                <strong>⊕ Iniciar simulación</strong>
+              </div>
+            </article>
+          </div>
+          <div class="metrics-grid">
+            <article class="metric-card">
+              <span>Planes activos</span><strong id="metricPlans">0</strong>
+            </article>
+            <article class="metric-card">
+              <span>Ahorro potencial mensual</span
+              ><strong id="metricSaving" class="green">USD 0.00</strong>
+            </article>
+            <article class="metric-card">
+              <span>Dólar referencial (USD)</span><strong>S/ 3.52</strong>
+            </article>
+          </div>
+          <div class="tip-card">
+            💡 <b>Tip del Día:</b> La cuota balón puede reducir tu pago mensual
+            durante el periodo regular del crédito.
+          </div>
+          <section class="market-section">
+            <h2>Condiciones de referencia del mercado</h2>
+            <div class="table-wrap"><table id="marketTable"></table></div>
+          </section>
+        </section>
+
+        <section id="newPlanPage" class="page">
+          <div class="hero">
+            <div>
+              <h1>Crear Nuevo Plan</h1>
+              <p>
+                Configura las condiciones de financiamiento y simula tu plan
+                para conocer tu cuota mensual y beneficios.
+              </p>
+            </div>
+            <span>🚘</span>
+          </div>
+          <form id="newPlanForm" class="panel-form">
+            <div class="form-group full">
+              <label>Entidad financiera</label
+              ><select id="entitySelect"></select
+              ><small id="bankInfo"></small>
+            </div>
+            <div class="range-block full">
+              <div class="range-head">
+                <label>Precio del vehículo</label
+                ><span id="priceLabel">USD 28,000.00</span>
+              </div>
+              <input
+                id="vehiclePrice"
+                type="range"
+                min="10000"
+                max="75000"
+                step="500"
+                value="28000"
+              />
+              <div class="range-limits">
+                <span>USD 10,000.00</span><span>USD 75,000.00</span>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Cuota Inicial (%)</label
+                ><input
+                  id="initialPct"
+                  type="number"
+                  min="10"
+                  max="30"
+                  step="0.05"
+                  value="20"
+                />
+              </div>
+              <div class="form-group">
+                <label>TEA (%)</label
+                ><input
+                  id="teaPct"
+                  type="number"
+                  min="8.5"
+                  max="16.5"
+                  step="0.05"
+                  value="11.75"
+                />
+              </div>
+              <div class="form-group">
+                <label>Meses de gracia</label
+                ><select id="graceMonths"></select>
+              </div>
+              <div class="form-group">
+                <label>Plazo</label
+                ><select id="termMonths"></select>
+              </div>
+              <div class="form-group">
+                <label>Cuota Balón (%)</label
+                ><input
+                  id="balloonPct"
+                  type="number"
+                  min="40"
+                  max="50"
+                  step="0.05"
+                  value="40"
+                />
+              </div>
+              <div class="form-group">
+                <label>Tipo de gracia</label
+                ><select id="graceType">
+                  <option>Sin gracia</option>
+                  <option>Parcial</option>
+                  <option>Total</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Fecha de inicio</label
+                ><input id="startDate" type="date" />
+              </div>
+              <div class="form-group">
+                <label>Seguro Desgravamen</label
+                ><select id="includeSd">
+                  <option value="yes">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Seguro Vehicular</label
+                ><select id="includeVehicleInsurance">
+                  <option value="yes">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tasa mensual desgravamen (%)</label
+                ><input
+                  id="sdRate"
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="0.08"
+                />
+              </div>
+              <div class="form-group">
+                <label>Tasa mensual seguro vehicular (%)</label
+                ><input
+                  id="vehicleInsuranceRate"
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="0.12"
+                />
+              </div>
+            </div>
+            <div class="actions">
+              <button class="secondary-btn" type="button" id="cancelPlan">
+                Cancelar</button
+              ><button class="primary-btn small" type="submit">Continuar</button
+              ><button class="outline-btn" type="button" id="saveDraft">
+                Guardar borrador
+              </button>
+            </div>
+          </form>
+          <section id="resultSection" class="result-section hidden">
+            <h2>Resultado de la simulación</h2>
+            <div class="metrics-grid four">
+              <article class="metric-card">
+                <span>Monto del préstamo</span><strong id="resLoan"></strong>
+              </article>
+              <article class="metric-card">
+                <span>Cuota regular aprox.</span
+                ><strong id="resPayment"></strong>
+              </article>
+              <article class="metric-card">
+                <span>TEM</span><strong id="resTem"></strong>
+              </article>
+              <article class="metric-card">
+                <span>TCEA estimada</span
+                ><strong id="resTcea" class="gold"></strong>
+              </article>
+            </div>
+            <div class="table-wrap"><table id="resultSchedule"></table></div>
+          </section>
+        </section>
+
+        <section id="plansPage" class="page">
+          <div class="hero">
+            <div>
+              <h1>Planes e historial</h1>
+              <p>
+                Administra tus simulaciones guardadas y revisa el cronograma del
+                plan seleccionado.
+              </p>
+            </div>
+            <span>▤</span>
+          </div>
+          <div class="filters">
+            <input
+              id="planSearch"
+              type="text"
+              placeholder="Buscar Plan"
+            /><select id="planTermFilter">
+              <option>Todos</option>
+              <option>24</option>
+              <option>36</option></select
+            ><select id="planStatusFilter">
+              <option>Todos</option>
+              <option>Guardado</option>
+              <option>Borrador</option>
+            </select>
+          </div>
+          <div id="plansList" class="plans-list"></div>
+          <section id="selectedPlanSection" class="selected-plan hidden">
+            <h2 id="selectedPlanTitle">Cronograma del plan seleccionado</h2>
+            <div class="metrics-grid four">
+              <article class="metric-card">
+                <span>Cuota regular</span><strong id="selPayment"></strong>
+              </article>
+              <article class="metric-card">
+                <span>TCEA</span><strong id="selTcea" class="gold"></strong>
+              </article>
+              <article class="metric-card">
+                <span>TIR mensual</span><strong id="selTir"></strong>
+              </article>
+              <article class="metric-card">
+                <span>VAN</span><strong id="selVan"></strong>
+              </article>
+              <article class="metric-card">
+                <span>Total intereses</span><strong id="selInterest"></strong>
+              </article>
+              <article class="metric-card">
+                <span>TEM</span><strong id="selTEM" class="gold"></strong>
+              </article>
+              <article class="metric-card">
+                <span>Monto total del préstamo</span><strong id="selTotalLoan"></strong>
+              </article>
+            </div>
+            <div class="table-wrap"><table id="selectedSchedule"></table></div>
+          </section>
+        </section>
+
+        <section id="settingsPage" class="page">
+          <div class="hero">
+            <div>
+              <h1>Ajustes de perfil</h1>
+              <p>Configura tu perfil de usuario</p>
+            </div>
+            <span>👤</span>
+          </div>
+          <form id="profileForm" class="panel-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Nombres y apellidos</label
+                ><input
+                  id="profileName"
+                  type="text"
+                  placeholder="Nombres y apellidos"
+                />
+              </div>
+              <div class="form-group">
+                <label>Contraseña</label
+                ><input
+                  id="profilePassword"
+                  type="password"
+                  placeholder="Nueva contraseña"
+                />
+              </div>
+              <div class="form-group">
+                <label>Correo electrónico</label
+                ><input
+                  id="profileEmail"
+                  type="email"
+                  placeholder="Correo electrónico"
+                />
+              </div>
+              <div class="form-group">
+                <label>Tipo de documento</label
+                ><select id="profileDocType">
+                  <option>DNI</option>
+                  <option>CE</option>
+                  <option>Pasaporte</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>N° de documento</label
+                ><input
+                  id="profileDocNumber"
+                  type="text"
+                  placeholder="N° de documento"
+                />
+              </div>
+              <div class="form-group">
+                <label>Celular o teléfono</label
+                ><input
+                  id="profilePhone"
+                  type="text"
+                  placeholder="Celular o teléfono"
+                />
+              </div>
+            </div>
+            <button class="primary-btn small" type="submit">Actualizar</button>
+            <div id="profileMessage" class="message hidden"></div>
+          </form>
+        </section>
+      </section>
+    </main>S
+    <script src="script.js"></script>
+  </body>
+</html>
